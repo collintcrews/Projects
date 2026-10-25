@@ -27,7 +27,7 @@ I had a meeting with the IT department, essentially telling them I could save on
 
 Regardless, I pressed on, looking for other hardware that could be capable of running emulation. I found more local listings; I spent hours searching through online marketplaces, and eventually, I struck gold. An old Gigabyte Brix with an I7 Intel Processor. Powerful, with a substantial V-Cache and the capacity for Solid State Storage. So I negotiated; in my mind, I simply wanted to stop spending money on games, and to relive classics with my friends all in one place- I was willing to pay nearly 100 dollars. In the end, though, I ended up scoring the hardware for 48 dollars.
 
-![Original Gigabyte Brix Mini PC](./Images/GigBrix.jpg)
+![Original Gigabyte Brix Mini PC](./Images/gigbrix.jpg)
 *The Original Gigabyte BRIX listing*
 
 I immediately got to work researching how emulation states would work with lighter distributions of software. Basically, when any computer launches, the software installed on the computer (usually Mac or Windows) eats a bit of resources that matter more to low-end systems. Alternative systems like Linux are designed specifically with this in mind, and so I worked hard to find a proper distro. I landed on two:
@@ -41,7 +41,7 @@ I found that, while Batocera was incredibly well-designed and sleek, it lagged a
 
 Mint was much harder to work with; individually working through the software errors and editing the kernel were annoyances, for sure, but I enjoyed its complete control, particularly its Moonlight compatibility. Moonlight is a remote desktop system that allows for a desktop environment to be controlled from an external computer system. This is useful because if there was a game that I wanted to play that was much more modern, one that the Brix couldn't handle, I could simply offload it to my more powerful system, and stream it to wherever my friends were.
 
-![Batocera Linux Website Interface](./Images/Batocera.png)
+![Batocera Linux Website Interface](./Images/batocera.png)
 
 *The Batocera Website Interface*
 
@@ -73,7 +73,7 @@ By the end, the system was cool, sleek, and functional, with as much as a 70 Deg
 
 I finally had my system, and me and my friends could sit on the couch, and pull out any controller, and play any old game we want to without having to go looking for a disc and a legacy system, all while the system looks and runs amazing. 
 
-![Emulation Machine 1](./Images/Emulation%20Machine%201.jpg) ![Emulation Machine 2](./Images/Emulation%20Machine%202.jpg) ![Emulation Machine 3](./Images/Emulation%20Machine%203.jpg) ![Emulation Machine 4](./Images/Emulation%20Machine%204.jpg) ![Emulation Machine 5](./Images/Emulation%20Machine%205.jpg)
+![Emulation Machine 1](./Images/emulation-machine-1.jpg) ![Emulation Machine 2](./Images/emulation-machine-2.jpg) ![Emulation Machine 3](./Images/emulation-machine-3.jpg) ![Emulation Machine 4](./Images/emulation-machine-4.jpg) ![Emulation Machine 5](./Images/emulation-machine-5.jpg)
 
 Credits for this project:
 
