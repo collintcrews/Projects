@@ -1,0 +1,142 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead title={title} description={description} />
+        <style>
+            body {
+                font-family: system-ui, -apple-system, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                color: rgb(var(--black));
+                background: rgb(var(--background));
+            }
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1.5rem 2rem;
+                background-color: #ace1af;
+                color: #1b3b2b;
+            }
+            header h2 {
+                margin: 0;
+                font-size: 1.25rem;
+            }
+            header h2 a {
+                text-decoration: none;
+                color: #1b3b2b;
+            }
+            main {
+                flex: 1;
+                width: 960px;
+                max-width: calc(100% - 2rem);
+                margin: auto;
+                padding: 3rem 0;
+            }
+            .prose {
+                width: 720px;
+                max-width: calc(100% - 2em);
+                margin: auto;
+                padding: 1em;
+                color: rgb(var(--gray-dark));
+            }
+            .hero-image {
+                width: 100%;
+                max-height: 510px;
+                overflow: hidden;
+                border-radius: 12px;
+                text-align: center;
+            }
+            .hero-image img {
+                max-width: 100%;
+                height: auto;
+                object-fit: contain;
+            }
+            .title {
+                margin-bottom: 1em;
+                padding: 1em 0;
+                text-align: center;
+                line-height: 1;
+            }
+            .title h1 {
+                margin: 0 0 0.5em 0;
+            }
+            .date {
+                margin-bottom: 0.5em;
+                color: rgb(var(--gray));
+            }
+            .last-updated-on {
+                font-style: italic;
+            }
+            footer {
+                padding: 2rem;
+                text-align: center;
+                background-color: #ace1af;
+                color: #1b3b2b;
+                font-size: 0.9rem;
+            }
+            footer p {
+                margin: 0.4rem 0;
+            }
+            footer a {
+                color: #1b3b2b;
+                text-decoration: underline;
+            }
+            .social-links {
+                display: flex;
+                justify-content: center;
+                gap: 1.5rem;
+                margin-top: 0.5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h2><a href="/">Projects</a></h2>
+        </header>
+        <main>
+            <article>
+                <div class="hero-image">
+                    {heroImage && <img width={1020} height={510} src={heroImage.src} alt="" />}
+                </div>
+                <div class="prose">
+                    <div class="title">
+                        <div class="date">
+                            <FormattedDate date={pubDate} />
+                            {
+                                updatedDate && (
+                                    <div class="last-updated-on">
+                                        Last updated on <FormattedDate date={updatedDate} />
+                                    </div>
+                                )
+                            }
+                        </div>
+                        <h1>{title}</h1>
+                        <hr />
+                    </div>
+                    <slot />
+                </div>
+            </article>
+        </main>
+        <footer>
+            <p>Contact: <a href="mailto:CollinTCrews@gmail.com">CollinTCrews@gmail.com</a></p>
+            <div class="social-links">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
+            </div>
+        </footer>
+    </body>
+</html>
