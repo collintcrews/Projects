@@ -6,6 +6,11 @@ import FormattedDate from '../components/FormattedDate.astro';
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+// Safe handling for heroImage whether it's an optimized image object or a string path
+const imageSrc = typeof heroImage === 'object' && heroImage !== null 
+    ? (heroImage as any).src 
+    : heroImage;
 ---
 
 <!doctype html>
@@ -14,7 +19,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         <BaseHead title={title} description={description} />
         <style>
             body {
-                font-family: system-ui, -apple-system, sans-serif;
+                font-family: 'MyCustomFont', system-ui, -apple-system, sans-serif;
                 margin: 0;
                 padding: 0;
                 display: flex;
@@ -25,19 +30,27 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
             }
             header {
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
-                padding: 1.5rem 2rem;
+                padding: 2rem;
                 background-color: #ace1af;
                 color: #1b3b2b;
+                border-bottom: 1px solid rgba(27, 59, 43, 0.1);
             }
             header h2 {
                 margin: 0;
-                font-size: 1.25rem;
+                font-size: 1.4rem;
+                font-family: 'MyCustomFont', sans-serif;
+                letter-spacing: 1px;
+                text-align: center;
             }
             header h2 a {
                 text-decoration: none;
                 color: #1b3b2b;
+                transition: opacity 0.2s ease;
+            }
+            header h2 a:hover {
+                opacity: 0.75;
             }
             main {
                 flex: 1;
@@ -53,18 +66,36 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 padding: 1em;
                 color: rgb(var(--gray-dark));
             }
+
+            /* Non-Sticky Shrinking Hero Image Styles */
             .hero-image {
+                position: relative; /* Standard flow - moves up off-screen with scrolling */
                 width: 100%;
-                max-height: 510px;
+                height: 510px;
                 overflow: hidden;
                 border-radius: 12px;
                 text-align: center;
+                margin-bottom: 2rem;
+                transition: height 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             }
+
             .hero-image img {
-                max-width: 100%;
-                height: auto;
-                object-fit: contain;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 12px;
+                transition: transform 0.3s ease;
             }
+
+            /* Shrunk State when scroll begins */
+            .hero-image.shrunk {
+                height: 220px; /* Shrinks to a compact banner height while staying in flow */
+            }
+
+            .hero-image.shrunk img {
+                transform: scale(1.02); /* Slight zoom accent while shrunk */
+            }
+
             .title {
                 margin-bottom: 1em;
                 padding: 1em 0;
@@ -101,16 +132,58 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 gap: 1.5rem;
                 margin-top: 0.5rem;
             }
+            @media (max-width: 720px) {
+                header h2 {
+                    font-size: 1.1rem;
+                }
+                .hero-image {
+                    height: 320px;
+                }
+                .hero-image.shrunk {
+                    height: 160px;
+                }
+            }
         </style>
-    </head>
-    <body>
+    </head> 
+    <!-- Floating Links Menu Widget -->
+<div class="floating-menu-container" id="floatingMenu">
+    <button class="menu-toggle-btn" id="menuToggle" aria-label="Toggle Links Menu">
+        +
+    </button>
+    <div class="menu-popup">
+        <a href="https://www.linkedin.com/in/-collin-crews" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.youtube.com/@Kiyrs" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href="mailto:CollinTCrews@gmail.com">Email Me</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuContainer = document.getElementById('floatingMenu');
+        const menuToggle = document.getElementById('menuToggle');
+
+        if (!menuContainer || !menuToggle) return;
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuContainer.classList.toggle('active');
+        });
+
+        document.addEventListener('click', () => {
+            if (menuContainer.classList.contains('active')) {
+                menuContainer.classList.remove('active');
+            }
+        });
+    });
+</script>
+        <body>
         <header>
-            <h2><a href="/">Projects</a></h2>
+            <h2><a href="/">Collin Crews - Project Portfolio</a></h2>
         </header>
         <main>
             <article>
                 <div class="hero-image">
-                    {heroImage && <img width={1020} height={510} src={heroImage.src} alt="" />}
+                    {imageSrc && <img width={1020} height={510} src={imageSrc} alt="" />}
                 </div>
                 <div class="prose">
                     <div class="title">
@@ -138,5 +211,23 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
             </div>
         </footer>
+
+        <!-- Scroll listener script to trigger height shrink without sticking -->
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                const heroImageContainer = document.querySelector('.hero-image');
+                if (!heroImageContainer) return;
+
+                const handleScroll = () => {
+                    if (window.scrollY > 40) {
+                        heroImageContainer.classList.add('shrunk');
+                    } else {
+                        heroImageContainer.classList.remove('shrunk');
+                    }
+                };
+
+                window.addEventListener('scroll', handleScroll, { passive: true });
+            });
+        </script>
     </body>
 </html>

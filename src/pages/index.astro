@@ -13,10 +13,10 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead title="Projects" description={SITE_DESCRIPTION} />
+        <BaseHead title="Collin Crews - Project Portfolio" description={SITE_DESCRIPTION} />
         <style>
             body {
-                font-family: system-ui, -apple-system, sans-serif;
+                font-family: 'MyCustomFont', system-ui, -apple-system, sans-serif;
                 margin: 0;
                 padding: 0;
                 display: flex;
@@ -27,19 +27,27 @@ const posts = (await getCollection('blog')).sort(
             }
             header {
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
-                padding: 1.5rem 2rem;
+                padding: 2rem;
                 background-color: #ace1af;
                 color: #1b3b2b;
+                border-bottom: 1px solid rgba(27, 59, 43, 0.1);
             }
             header h2 {
                 margin: 0;
-                font-size: 1.25rem;
+                font-size: 1.4rem;
+                font-family: 'MyCustomFont', sans-serif;
+                letter-spacing: 1px;
+                text-align: center;
             }
             header h2 a {
                 text-decoration: none;
                 color: #1b3b2b;
+                transition: opacity 0.2s ease;
+            }
+            header h2 a:hover {
+                opacity: 0.75;
             }
             main {
                 flex: 1;
@@ -64,6 +72,9 @@ const posts = (await getCollection('blog')).sort(
                 transition: 0.2s ease;
             }
             ul li img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
                 margin-bottom: 0.5rem;
                 border-radius: 12px;
             }
@@ -73,11 +84,13 @@ const posts = (await getCollection('blog')).sort(
             .title {
                 margin: 0;
                 color: rgb(var(--black));
-                line-height: 1;
+                line-height: 1.3;
+                font-size: 1.15rem;
             }
             .date {
-                margin: 0;
+                margin: 0.25rem 0 0 0;
                 color: rgb(var(--gray));
+                font-size: 0.9rem;
             }
             ul li a:hover .title,
             ul li a:hover .date {
@@ -111,28 +124,37 @@ const posts = (await getCollection('blog')).sort(
                     width: 100%;
                     text-align: center;
                 }
+                header h2 {
+                    font-size: 1.1rem;
+                }
             }
         </style>
     </head>
     <body>
         <header>
-            <h2><a href="/">Projects</a></h2>
+            <h2><a href="/">Collin Crews - Project Portfolio</a></h2>
         </header>
         <main>
             <section>
                 <ul>
                     {
-                     posts.map((post) => (
-                            <li>
-                                <a href={`/blog/${post.id}/`}>
-                                    <img width={720} height={360} src={post.data.heroImage.src} alt="" />
-                                    <h4 class="title">{post.data.title}</h4>
-                                    <p class="date">
-                                        <FormattedDate date={post.data.pubDate} />
-                                    </p>
-                                </a>
-                            </li>
-                        ))
+                        posts.map((post) => {
+                            const imageSrc = typeof post.data.heroImage === 'object' && post.data.heroImage !== null 
+                                ? (post.data.heroImage as any).src 
+                                : post.data.heroImage;
+
+                            return (
+                                <li>
+                                    <a href={`/blog/${post.id}/`}>
+                                        {imageSrc && <img width={720} height={360} src={imageSrc} alt="" />}
+                                        <h4 class="title">{post.data.title}</h4>
+                                        <p class="date">
+                                            <FormattedDate date={post.data.pubDate} />
+                                        </p>
+                                    </a>
+                                </li>
+                            );
+                        })
                     }
                 </ul>
             </section>
@@ -140,7 +162,7 @@ const posts = (await getCollection('blog')).sort(
         <footer>
             <p>Contact: <a href="mailto:CollinTCrews@gmail.com">CollinTCrews@gmail.com</a></p>
             <div class="social-links">
-                <a href="www.linkedin.com/in/-collin-crews" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/-collin-crews" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a href="https://www.youtube.com/@Kiyrs" target="_blank" rel="noopener noreferrer">YouTube</a>
             </div>
         </footer>

@@ -2,7 +2,7 @@
 title: 'The Emulation Machine, Repurposing Legacy Technology'
 description: 'Repurposed Legacy Technology'
 pubDate: 'Jun 28, 2026'
-heroImage: './Images/emulation-hero.png'
+heroImage: './Images/cover-image.jpg'
 ---
 
 Sitting on the couch, my friends on either side, I realize that I am truly bored. We've played the same game over and over, until the point where every time we hang out, we move on instinct to just throw it on in the background. I can tell by the look on their faces that they're bored too.
