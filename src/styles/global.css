@@ -198,9 +198,7 @@ hr {
     box-shadow: none;
 }
 
-/* ==========================================
-   Floating Expandable Links Menu Styles
-   ========================================== */
+
 .floating-menu-container {
     position: fixed;
     bottom: 2rem;
